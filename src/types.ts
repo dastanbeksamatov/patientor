@@ -4,7 +4,7 @@ export interface DiagnoseEntry {
   latin?: string;
 }
 
-interface BaseEntry {
+export interface BaseEntry {
   id: string;
   description: string;
   date: string;
@@ -19,7 +19,7 @@ export enum HealthRating {
   "CriticalRisk"=2,
 }
 
-interface HealthCheckEntry extends BaseEntry {
+export interface HealthCheckEntry extends BaseEntry {
   type: "HealthCheck";
   healthCheckRating: HealthRating;
 }
@@ -29,7 +29,7 @@ interface Discharge {
   criteria: string;
 }
 
-interface HospitalEntry extends BaseEntry {
+export interface HospitalEntry extends BaseEntry {
   type: "Hospital";
   discharge: Discharge;
 }
@@ -39,13 +39,30 @@ interface SickLeave {
   endDate: string;
 }
 
-interface OccupationalHealthcare extends BaseEntry {
+export interface OccupationalHealthcare extends BaseEntry {
   type: "OccupationalHealthcare";
   employerName: string;
   sickLeave: SickLeave;
 }
 
 export type Entry = HealthCheckEntry | HospitalEntry | OccupationalHealthcare;
+export type newEntry = Omit<HealthCheckEntry, "id"> | Omit<HospitalEntry, "id"> | Omit<OccupationalHealthcare, "id">;
+
+export interface Occupation extends BaseEntry {
+  type: "OccupationalHealthcare";
+  employerName: string;
+  endDate: string;
+  startDate: string;
+}
+
+export interface Hospital extends BaseEntry {
+  type: "Hospital";
+  dischargeDate: string;
+  dischargeCriteria: string;
+}
+
+export type FormValuesEntry = Omit<HealthCheckEntry, "id"> | Omit<Occupation, "id"> | Omit<Hospital, "id">;
+
 
 export interface Diagnosis {
   code: string;

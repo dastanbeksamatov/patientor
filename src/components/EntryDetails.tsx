@@ -6,6 +6,8 @@ const generateIcon = ( name: string ) => {
   switch (name){
     case "OccupationalHealthcare":
       return <Icon name="stethoscope"/>;
+    case "Hospital":
+      return <Icon name="hospital"/>;
     default:
       return <Icon name="doctor"/>;
   }
@@ -32,7 +34,7 @@ const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }): JSX.Element => {
     case "Hospital":
     return (
       <Segment padded="very">
-        <Header size="medium">{ entry.date } </Header>
+        <Header size="medium">{ entry.date } { generateIcon("Hospital") }</Header>
         { entry.description }
         <p>{ entry.discharge.criteria }</p>
     </Segment>
